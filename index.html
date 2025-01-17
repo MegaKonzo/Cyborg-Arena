@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyborg Arena</title>
+    <link rel="shortcut icon" href="img/global/icon.jpg" type="image/x-icon" />
+    <link rel="stylesheet" href="css/index.css" />
+
+</head>
+    <body>
+        <div class="out">
+            <header
+                data-hx-trigger="load"
+                data-hx-swap="outerHTML"
+                data-hx-get="global.header.partial.html"
+            ></header>
+            <main>
+                <section
+                    data-hx-trigger="load"
+                    data-hx-swap="outerHTML"
+                    data-hx-get="index.section-hero.partial.html"
+                ></section>
+
+            </main>
+            <footer
+                data-hx-trigger="load"
+                data-hx-swap="outerHTML"
+                data-hx-get="global.footer.partial.html"
+            ></footer>
+        </div>
+    
+        <script src="js/index.js"></script>
+    </body>
+</html>
