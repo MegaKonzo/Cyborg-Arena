@@ -92,7 +92,7 @@
     border: 2px solid var(--accent);
     border-radius: 4px;
     background-color: var(--text-white);
-    font-family: var(--font-secondary), Helvetica, Arial, sans-serif;
+    font-family: var(--font-primary), Helvetica, Arial, sans-serif;
     font-weight: 700;
     color: var(--gray-color1);
     font-size: 0.675rem;
