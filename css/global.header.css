@@ -2,24 +2,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 26px 15px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--text-white);
+    padding-right: 20px;
+    background-color: var(--accent);
   }
   
   .header__content {
     display: flex;
     align-items: center;
   
-    @media (max-width: 899px) {
+    @media (max-width: 1040px) {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 9;
       width: 100vw;
       height: 100dvh;
-      background-color: var(--text-white);
+      background-color: var(--accent);
       flex-direction: column;
       justify-content: center;
       text-align: center;
@@ -37,7 +37,7 @@
   .logo-container img {
     position: relative;
     z-index: 10;
-    max-width: 108px;
+    max-width: 350px;
   }
   
   .nav-list {
@@ -57,7 +57,7 @@
     padding-bottom: 2px;
     text-decoration: none;
     color: var(--text);
-    font-size: 1rem;
+    font-size: 2rem;
     transition: color .3s ease;
   
     @media (min-width: 900px) {
@@ -71,14 +71,14 @@
       bottom: 0;
       width: 100%;
       height: 2px;
-      background-color: var(--accent);
+      background-color: var(--text-blue);
       transition: transform .3s ease;
       transform: scaleX(0);
       transform-origin: left;
     }
   
     &:hover {
-      color: var(--accent);
+      color: var(--text-blue);
   
       &:after {
         transform: scaleX(1);
@@ -86,16 +86,15 @@
     }
   }
   
-  .shop-now-button {
+  .book-now-button {
     display: block;
     padding: 13px 22px;
-    border: 2px solid var(--accent);
+    border: 2px solid var(--text);
     border-radius: 4px;
-    background-color: var(--text-white);
-    font-family: var(--font-primary), Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    color: var(--gray-color1);
-    font-size: 0.675rem;
+    background-color: var(--accent);
+    font-family: var(--font-primary);
+    color: var(--text);
+    font-size: 1rem;
     transition: all 0.3s ease;
     margin: 20px auto 0;
     @media (min-width: 900px) {
@@ -104,8 +103,9 @@
     }
   
     &:hover {
-      background-color: var(--accent);
-      color: var(--text-white);
+      background-color: var(--gray-color1);
+      color: var(--text-blue);
+      border: 2px solid var(--text-blue);
     }
   }
   
@@ -117,7 +117,7 @@
     background-color: transparent;
     border: none;
   
-    @media (min-width: 900px) {
+    @media (min-width: 1040px) {
       display: none;
     }
   
