@@ -3,9 +3,11 @@
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     padding-right: 20px;
     background-color: var(--accent);
+    border: thick double var(--text-blue);
+    box-shadow: -1em 0 .9em var(--text-blue), 1em 0 .9em var(--text-blue);
   }
   
   .header__content {
