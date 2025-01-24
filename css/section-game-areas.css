@@ -1,6 +1,5 @@
 .container {
     max-width: 1200px;
-    max-height: 686px;
     margin: 0 auto 20px auto;
     background-color: var(--accent);
     border: 1px solid var(--text-blue);
