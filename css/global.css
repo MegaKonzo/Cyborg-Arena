@@ -25,10 +25,9 @@ body {
   color: var(--text);
   margin: 0;
   padding: 0;
-  background-repeat: repeat; /* Повторювати фон */
-  background-size: cover; /* Розтягнути фон на весь екран */
-  background-attachment: fixed; /* Закріпити фон при прокручуванні */
-  background-position: center; /* Вирівняти фон по центру */
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   background-image: url(../img/global/background.jpg);
   opacity: 0.95;
 
