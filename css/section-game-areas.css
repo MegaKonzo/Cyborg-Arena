@@ -5,3 +5,15 @@
     border: 1px solid var(--text-blue);
     box-shadow: 0px 0px 100px var(--text-blue);
   }
+  .hero__text h3{
+    margin: 20px auto 20px auto;
+    letter-spacing: 7px;
+    font-size: 20px;
+    color: var(--text);
+    @media only screen and (min-width: 1023px) {
+      font-size: 40px;
+    }
+  }
+  .img__areas {
+    display: flex;
+  }
