@@ -6,16 +6,17 @@
     box-shadow: 0px 0px 100px var(--text-blue);
   }
   .hero__text h3 {
-    margin: 20px auto 20px auto;
+    margin: 25px auto 40px auto;
     letter-spacing: 7px;
     font-size: 20px;
-    color: var(--text);
+    color: var(--text-blue);
     @media only screen and (min-width: 1023px) {
       font-size: 40px;
     }
   }
   .main__hall{
     display: flex;
+    margin-bottom: 40px;
   }
   .content__hall p{
     margin: 0;
@@ -36,6 +37,40 @@
     max-width: 600px;
     height: auto;
   }
-  .content_mix img{
 
+  .container__flex h5{
+    text-align: center;
+    letter-spacing: 3px;
+    color: var(--text-blue);
+    font-size: 15px;
+    @media only screen and (min-width: 1023px) {
+      font-size: 25px;
+    }
+  }
+  .content_mix {
+    display: flex;
+    margin-bottom: 40px;
+  }
+  .content_mix p {
+    text-align: justify;
+    margin: 0 20px;
+    line-height: 1.5;
+    font-size: 15px;
+    @media only screen and (min-width: 1023px) {
+      font-size: 20px;
+    }
+  }
+  .content_mix span:first-child {
+    color: var(--text-blue);
+    font-size: 15px;
+    @media only screen and (min-width: 1023px) {
+      font-size: 25px;
+    }
+  }
+  .content_mix span {
+    color: var(--text-blue);
+  }
+  .content_mix img{
+    max-width: 450px;
+    height: auto;
   }
