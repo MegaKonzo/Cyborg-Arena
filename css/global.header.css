@@ -59,11 +59,11 @@
     padding-bottom: 2px;
     text-decoration: none;
     color: var(--text);
-    font-size: 2rem;
+    font-size: 32px;
     transition: color .3s ease;
   
     @media (min-width: 900px) {
-      font-size: 0.938rem;
+      font-size: 18px;
     }
   
     &:after {
@@ -96,7 +96,7 @@
     background-color: var(--accent);
     font-family: var(--font-primary);
     color: var(--text);
-    font-size: 1rem;
+    font-size: 18px;
     transition: all 0.3s ease;
     margin: 20px auto 0;
     @media (min-width: 900px) {
@@ -111,6 +111,31 @@
     }
   }
   
+  .back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    display: none;
+    font-size: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .back-to-top.show {
+    display: block;
+  }
+
+  .back-to-top:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+  }
+
   .burger {
     position: relative;
     z-index: 10;

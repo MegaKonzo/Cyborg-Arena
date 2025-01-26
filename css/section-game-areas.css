@@ -17,7 +17,7 @@
   .content__hall p{
     margin: 0;
     line-height: 1.5;
-    font-size: 15px;
+    font-size: 16px;
     @media only screen and (min-width: 1023px) {
       font-size: 25px;
     }
