@@ -8,7 +8,7 @@
   .hero__text h3 {
     margin: 25px auto 40px auto;
     letter-spacing: 7px;
-    font-size: 20px;
+    font-size: 30px;
     color: var(--text-blue);
     @media only screen and (min-width: 1023px) {
       font-size: 40px;
@@ -17,14 +17,14 @@
   .content__hall p{
     margin: 0;
     line-height: 1.5;
-    font-size: 16px;
+    font-size: 20px;
     @media only screen and (min-width: 1023px) {
       font-size: 25px;
     }
   }
   .content__hall ul{
     line-height: 1.5;
-    font-size: 12px;
+    font-size: 14px;
     @media only screen and (min-width: 1023px) {
       font-size: 18px;
     }
@@ -38,7 +38,7 @@
     text-align: center;
     letter-spacing: 3px;
     color: var(--text-blue);
-    font-size: 15px;
+    font-size: 20px;
     @media only screen and (min-width: 1023px) {
       font-size: 25px;
     }
@@ -73,7 +73,7 @@
   }
   .content__mix span:first-child {
     color: var(--text-blue);
-    font-size: 15px;
+    font-size: 20px;
     @media only screen and (min-width: 1023px) {
       font-size: 25px;
     }

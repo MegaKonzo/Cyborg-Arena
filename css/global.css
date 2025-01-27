@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-@import './global.header.css';
-
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+@import "./global.header.css";
 
 :root {
   --text: #65dc98;
@@ -10,7 +9,8 @@
   --gray-color2: #8d8980;
   --back-color1: #2d3748;
   --back-color2: #0000001c;
-  --font-primary: 'Bangers';
+  --red: #d9534f;
+  --font-primary: "Bangers";
 }
 
 * {

@@ -1,7 +1,7 @@
 const backToTopButton = document.getElementById("backToTop");
 
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) {
+      if (window.scrollY > 600) {
         backToTopButton.classList.add("show");
       } else {
         backToTopButton.classList.remove("show");

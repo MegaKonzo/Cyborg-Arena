@@ -1,0 +1,55 @@
+#prices {
+  padding-inline: 23%;
+}
+
+#prices h3 {
+  text-align: center;
+  margin: 25px auto 40px auto;
+  letter-spacing: 7px;
+  font-size: 30px;
+  color: var(--text-blue);
+  @media only screen and (min-width: 1023px) {
+    font-size: 40px;
+  }
+}
+
+#prices ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+#prices ul li {
+    background-color: var(--back-color1);
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 10px;
+  color: var(--text);
+  box-shadow: 0 2px 4px var(--back-color2);
+  font-size: 14px;
+  @media only screen and (min-width: 1023px) {
+    font-size: 18px;
+  }
+}
+
+#prices p {
+  color: var(--text-blue);
+  margin-top: 20px;
+  font-size: 14px;
+  @media only screen and (min-width: 1023px) {
+    font-size: 18px;
+  }
+}
+
+.discount {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  @media only screen and (min-width: 1023px) {
+    font-size: 18px;
+  }
+}
+
+.discount strong {
+    color: var(--red);
+}

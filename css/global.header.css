@@ -59,12 +59,8 @@
     padding-bottom: 2px;
     text-decoration: none;
     color: var(--text);
-    font-size: 32px;
     transition: color .3s ease;
-  
-    @media (min-width: 900px) {
-      font-size: 18px;
-    }
+    font-size: 18px;
   
     &:after {
       content: "";

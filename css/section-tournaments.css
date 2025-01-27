@@ -16,7 +16,7 @@
 .tournaments-title {
   margin: 25px auto 40px auto;
   letter-spacing: 7px;
-  font-size: 20px;
+  font-size: 30px;
   color: var(--text-blue);
   @media only screen and (min-width: 1023px) {
     font-size: 40px;
@@ -25,7 +25,7 @@
 
 .tournaments-description {
   margin-bottom: 32px;
-  font-size: 16px;
+  font-size: 20px;
   @media only screen and (min-width: 1023px) {
     font-size: 25px;
   }
@@ -50,14 +50,14 @@
 
 .tournament-date {
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   @media only screen and (min-width: 1023px) {
     font-size: 18px;
   }
 }
 
 .tournament-name {
-  font-size: 12px;
+  font-size: 14px;
   @media only screen and (min-width: 1023px) {
     font-size: 18px;
   }
@@ -65,7 +65,7 @@
 
 .tournaments-footer {
   margin-top: 32px;
-  font-size: 12px;
+  font-size: 14px;
   @media only screen and (min-width: 1023px) {
     font-size: 18px;
   }
