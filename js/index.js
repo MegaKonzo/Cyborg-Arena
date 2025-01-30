@@ -1,5 +1,7 @@
 function init() {
     import('./index.arrow-to-top.js');
+    import('./index.contacts.js');
+    
 
   }
   
