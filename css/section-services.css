@@ -1,5 +1,5 @@
 #services {
-  padding: 48px 20px;
+  padding: 20px 10px;
   max-width: 1200px;
   margin: 0 auto 20px auto;
   background-color: var(--accent);
@@ -26,6 +26,15 @@
   .services {
     grid-template-columns: 1fr;
     place-items: center;
+  }
+}
+
+.services ul{
+  padding-left: 20px;
+  line-height: 1.5;
+  font-size: 14px;
+  @media only screen and (min-width: 1023px) {
+    font-size: 18px;
   }
 }
 
