@@ -1,3 +1,10 @@
+.container__footer {
+  max-width: 1200px;
+  margin: 0 auto 0 auto;
+  background-color: var(--accent);
+  border: 1px solid var(--text-blue);
+  box-shadow: 0px 0px 100px var(--text-blue);
+}
 .footer__info {
   display: flex;
   flex-direction: column;
