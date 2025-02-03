@@ -9,7 +9,6 @@ form.addEventListener("submit", function (event) {
   const quantity = document.getElementById("quantity").value.trim();
   const message = document.getElementById("message").value.trim();
 
-  // Регулярні вирази для валідації
   const nameRegex = /^[A-Za-zА-Яа-яЁёЇїІіЄєҐґ\s'-]{2,}$/;
   const phoneRegex = /^\+?[0-9]{10,14}$/;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -40,20 +39,33 @@ form.addEventListener("submit", function (event) {
   if (!isValid) {
     return;
   }
-  // Відправлення форми через AJAX
-  const formData = new FormData(form);
 
-  fetch("server.php", {
+  const comment = {
+    id: new Date().toISOString(),
+    fullName,
+    phoneNumber,
+    email,
+    quantity,
+    message,
+  };
+
+  console.log("Sending comment:", comment);
+
+  fetch("http://localhost:3000/add-comment", {
     method: "POST",
-    body: formData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comment),
   })
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => {
-      alert("Form submitted successfully!");
-      form.reset();
+      if (data.success) {
+        alert("Your comment has been saved successfully!");
+        form.reset();
+      } else {
+        alert("Error saving your comment. Please try again.");
+      }
     })
-    .catch((error) => {
-      alert("An error occurred. Please try again.");
-      console.error("Error:", error);
-    });
+    .catch((error) => console.error("Error:", error));
 });

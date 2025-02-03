@@ -1,8 +1,7 @@
 function init() {
     import('./index.arrow-to-top.js');
     import('./index.contacts.js');
-    
-
+    import('./comments.js');
   }
   
   const totalPartials = document.querySelectorAll(
