@@ -48,7 +48,7 @@
   gap: 20px;
   padding: 0;
   list-style: none;
-  @media (min-width: 900px) {
+  @media (min-width: 1041px) {
     flex-direction: row;
     gap: 15px;
   }
@@ -94,17 +94,21 @@
   color: var(--text);
   font-size: 18px;
   transition: all 0.3s ease;
-  margin: 20px auto 0;
-  @media (min-width: 900px) {
-    margin-left: 20px;
-    margin-top: 0;
-  }
+  margin-left: 20px;
+}
 
-  &:hover {
-    background-color: var(--gray-color1);
-    color: var(--text-blue);
-    border: 2px solid var(--text-blue);
+@media (max-width: 1040px) {
+  .book-now-button {
+    position: relative;
+    bottom: 0;
+    margin-top: 40px;
   }
+}
+
+.book-now-button:hover {
+  background-color: var(--gray-color1);
+  color: var(--text-blue);
+  border: 2px solid var(--text-blue);
 }
 
 .back-to-top {
@@ -141,7 +145,7 @@
   background-color: transparent;
   border: none;
 
-  @media (min-width: 900px) {
+  @media (min-width: 1041px) {
     display: none;
   }
 
@@ -185,4 +189,21 @@
       }
     }
   }
+}
+
+.header__content::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.header__content.is-opened::before {
+  opacity: 1;
+  pointer-events: all;
 }
