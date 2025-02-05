@@ -3,6 +3,7 @@ function init() {
     import('./index.contacts.js');
     import('./index.section-header.js');
     import('./comments.js');
+    import('./index.book.js');
   }
   
   const totalPartials = document.querySelectorAll(
