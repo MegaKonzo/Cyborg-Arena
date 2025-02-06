@@ -34,7 +34,7 @@
 
 .all__halls {
   border: 1px solid var(--accent);
-  width: 60%;
+  width: 100%;
   height: 80%;
   display: flex;
   flex-direction: row;
@@ -53,26 +53,46 @@
 
 .main__hall {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.sets{
-  
+  grid-template-columns: 10% 10% 10% 10%;
+  gap: 5px;
+  justify-content: space-between;
+  min-width: 70%;
+  margin: 6% 1% 0 1%;
 }
 
-.vertical_first_line {
-  width: 2px; /* Товщина */
-  height: 500px; /* Висота */
+.sets {
+  border: 2px solid red;
+  background-color: transparent;
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sets:hover {
+  background-color: red;
+  color: white;
+}
+
+.vertical__lines {
+  display: flex;
+  justify-content: space-between;
+}
+.vertical__line {
+  width: 2px;
+  height: 100%; /* Висота */
+  margin: 0;
   background-color: black;
   border: none;
   display: inline-block;
 }
 
-.vertical_second_line {
-  width: 2px; /* Товщина */
-  height: 500px; /* Висота */
+.vertical__line:last-child {
   margin-left: 50px;
-  background-color: black;
-  border: none;
-  display: inline-block;
+}
+@media screen and (max-width:735px) {
+  .vertical__line:last-child {
+    margin-left: 20px;
+  }
 }
