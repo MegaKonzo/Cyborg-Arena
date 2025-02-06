@@ -15,8 +15,7 @@
   padding: 20px;
   border-radius: 10px;
   width: 80%;
-  height: 60%;
-  text-align: center;
+  height: 70%;
 }
 
 .close {
@@ -30,6 +29,10 @@
 .overflow-hidden {
   overflow: hidden;
   height: 100vh;
+}
+
+.book__now__title{
+  text-align: center;
 }
 
 .all__halls {
@@ -47,7 +50,7 @@
   width: 30%;
 }
 
-.vip__button {
+.vip__button, .free__places {
   flex-basis: 100%;
   border: 2px solid var(--text-blue);
   background-color: transparent;
@@ -61,6 +64,14 @@
     background-color: var(--text-blue);
     color: var(--gray-color1);
   }
+}
+
+.free__places{
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+  transition: 1s ease-in-out;
+  font-size: 18px;
 }
 
 .main__hall {
@@ -87,6 +98,11 @@
     color: var(--gray-color1);
   }
 }
+.sets.selected {
+  background-color: lightgreen; /* Підсвічування для вибраної кнопки */
+  border-color: green;
+}
+
 
 .vertical__lines {
   display: flex;

@@ -46,26 +46,36 @@
 
     <div id="booking-modal" class="modal">
       <div class="modal-content">
-
-        <h1>book now in Cyborg Arena</h1>
-
+        <h1 class="book__now__title">Book now in Cyborg Arena</h1>
+    
         <div class="all__halls">
-          <div class="vip__halls">
-            <button class="vip__button">XBOX 1</button>
-            <button class="vip__button">XBOX 2</button>
-            <button class="vip__button">XBOX 3</button>
-            <button class="vip__button">VR 1</button>
-            <button class="vip__button">VR 2</button>
-          </div>
-          <div class="vertical__lines">
-            <hr class="vertical__line">
-            <hr class="vertical__line">
-          </div>
-          <div class="main__hall"></div>
+            <div class="vip__halls">
+                <button class="vip__button">XBOX 1</button>
+                <button class="vip__button">XBOX 2</button>
+                <button class="vip__button">XBOX 3</button>
+                <button class="vip__button">VR 1</button>
+                <button class="vip__button">VR 2</button>
+            </div>
+            <div class="vertical__lines">
+                <hr class="vertical__line" />
+                <hr class="vertical__line" />
+            </div>
+            <div class="main__hall"></div>
         </div>
-
-
-      </div>
+        
+        <button id="free__places" class="free__places">Free places</button>
+        <label for="timeSelect">Choose duration:</label>
+        <select id="timeSelect">
+            <option value="1" data-price="2">1 hour - $2</option>
+            <option value="3" data-price="5">3 hours - $5</option>
+            <option value="5" data-price="7">5 hours - $7</option>
+            <option value="10" data-price="13">10 hours - $13</option>
+            <option value="13" data-price="15">Full day (13 hours) - $15</option>
+        </select>
+    
+        <p id="totalPrice">Total Price: $0</p>
+    </div>
+    
     </div>
   </div>
   <button class="back-to-top" id="backToTop">
