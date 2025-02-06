@@ -69,6 +69,88 @@ app.post("/add-comment", (req, res) => {
     });
   });
   
+  // RESERVATION
+  const RESERVATIONS_FILE = "reservation.json"; // Файл змінено на JSON формат
+
+  // Якщо файлу бронювання немає — створюємо його
+  if (!fs.existsSync(RESERVATIONS_FILE)) {
+    fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
+  }
+  
+  // Middleware для парсингу JSON
+  app.use(express.json());
+  app.use(cors());
+  
+  // Отримати всі заброньовані місця
+  // не робоче
+  app.get("/reservations", (req, res) => {
+    fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
+      if (err) {
+        console.error("Помилка читання файлу бронювань:", err);
+        return res.status(500).json({ success: false, message: "Помилка читання файлу" });
+      }
+  
+      let reservationsArray = [];
+      try {
+        reservationsArray = JSON.parse(data || "[]");
+      } catch (error) {
+        console.error("❌ Помилка парсингу JSON! Очищуємо файл...");
+        fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
+        return res.status(500).json({ success: false, message: "Файл бронювань було пошкоджено. Він очищений, спробуйте ще раз!" });
+      }
+  
+      res.json(reservationsArray);
+    });
+  });
+  // не робоче
+
+  // Створити нове бронювання
+  app.post("/book-computer", (req, res) => {
+    const { selectedComputers, userName, userPhone, selectedTime } = req.body;
+  
+    // Перевіряємо, чи не заброньовано вже ці комп'ютери на цей час
+    fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
+      if (err) {
+        console.error("Помилка читання файлу бронювань:", err);
+        return res.status(500).json({ success: false, message: "Помилка читання файлу" });
+      }
+  
+      let reservationsArray = [];
+      try {
+        reservationsArray = JSON.parse(data || "[]");
+      } catch (error) {
+        console.error("❌ Помилка парсингу JSON! Очищуємо файл...");
+        fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
+        return res.status(500).json({ success: false, message: "Файл бронювань було пошкоджено. Він очищений, спробуйте ще раз!" });
+      }
+  
+      // Перевірка на конфлікти з існуючими бронюваннями
+      for (const reservation of reservationsArray) {
+        if (selectedComputers.includes(reservation.computerId) && reservation.time === selectedTime) {
+          return res.status(400).json({ success: false, message: `Комп'ютери ${selectedComputers.join(", ")} вже заброньовані на цей час.` });
+        }
+      }
+  
+      // Додаємо нове бронювання
+      const newReservation = selectedComputers.map(computerId => ({
+        computerId,
+        userName,
+        userPhone,
+        time: selectedTime
+      }));
+  
+      reservationsArray.push(...newReservation);
+  
+      fs.writeFile(RESERVATIONS_FILE, JSON.stringify(reservationsArray, null, 2), "utf8", (err) => {
+        if (err) {
+          console.error("Помилка запису у файл бронювань:", err);
+          return res.status(500).json({ success: false, message: "Помилка запису у файл бронювань" });
+        }
+        res.json({ success: true, message: "Бронювання успішно створено!" });
+      });
+    });
+  });
+  
   // Запуск сервера
   app.listen(PORT, () => {
     console.log(`🚀 Сервер запущено: http://localhost:${PORT}`);

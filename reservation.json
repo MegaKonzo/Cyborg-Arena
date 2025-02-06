@@ -1,0 +1,38 @@
+[
+  {
+    "computerId": 1,
+    "userName": "Vlad",
+    "userPhone": "+380967342577",
+    "time": "1"
+  },
+  {
+    "computerId": 10,
+    "userName": "Vlad",
+    "userPhone": "+380967342577",
+    "time": "5"
+  },
+  {
+    "computerId": 10,
+    "userName": "Vlad",
+    "userPhone": "+380967342577",
+    "time": "3"
+  },
+  {
+    "computerId": 1,
+    "userName": "Vlad",
+    "userPhone": "+380967342577",
+    "time": "10"
+  },
+  {
+    "computerId": 21,
+    "userName": "Vlad",
+    "userPhone": "+380967342577",
+    "time": "1"
+  },
+  {
+    "computerId": 18,
+    "userName": "Vlad",
+    "userPhone": "+380967342577",
+    "time": "3"
+  }
+]

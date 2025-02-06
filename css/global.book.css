@@ -101,6 +101,12 @@
 .sets.selected {
   background-color: lightgreen; /* Підсвічування для вибраної кнопки */
   border-color: green;
+  color: var(--accent);
+}
+
+.sets.reserved {
+  background-color: red;
+  cursor: not-allowed;
 }
 
 

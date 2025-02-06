@@ -14,6 +14,7 @@ document
       btn.classList.add("sets");
       btn.textContent = i;
       btn.setAttribute('data-price', 2);
+      btn.setAttribute('id', `computer-${i}`);
       mainHall.appendChild(btn);
       
       btn.addEventListener("click", function () {
@@ -28,6 +29,20 @@ document
       });
   }
   
+  document.getElementById("close-modal").addEventListener("click", function () {
+    document.getElementById("booking-modal").style.display = "none";
+    document.body.classList.remove("overflow-hidden");
+  });
+  
+  // Закриття модального вікна при кліку за межами контенту
+  window.addEventListener("click", function (event) {
+    const modal = document.getElementById("booking-modal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+      document.body.classList.remove("overflow-hidden");
+    }
+  });
+
   function updateTotalPrice() {
       const selectedTime = document.getElementById("timeSelect").value;
       const pricePerHour = parseFloat(document.querySelector(`#timeSelect option[value="${selectedTime}"]`).getAttribute('data-price'));
@@ -57,4 +72,73 @@ window.addEventListener("click", function (event) {
     document.getElementById("booking-modal").style.display = "none";
     document.body.classList.remove("overflow-hidden");
   }
+});
+
+//POST RESERVATION
+// не робоче
+fetch("/reservations")
+  .then(response => response.json())
+  .then(reservations => {
+    const reservedComputers = reservations.map(res => res.computerId);
+    document.querySelectorAll(".sets").forEach(btn => {
+      if (reservedComputers.includes(parseInt(btn.textContent))) {
+        btn.classList.add("reserved");
+        btn.disabled = true;  // Забороняє вибір
+      }
+    });
+  });
+// не робоче
+
+// Обробка запиту на бронювання
+document.getElementById("bookButton").addEventListener("click", function () {
+  console.log("Booking button clicked");  // Перевірка, чи працює подія
+  
+  const selectedComputers = [];
+  const selectedTime = document.getElementById("timeSelect").value;
+  const userName = document.getElementById("userName").value;
+  const userPhone = document.getElementById("userPhone").value;
+
+  // Збираємо ID вибраних комп'ютерів
+  document.querySelectorAll(".sets.selected").forEach(function (btn) {
+    selectedComputers.push(parseInt(btn.textContent));
+  });
+
+  if (selectedComputers.length === 0) {
+    alert("Будь ласка, виберіть комп'ютери для бронювання.");
+    return;
+  }
+
+  // Перевірка на заповненість полів
+  if (!userName || !userPhone) {
+    alert("Будь ласка, заповніть ім'я та телефон.");
+    return;
+  }
+
+  // Відправка даних на сервер
+  fetch("/book-computer", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      selectedComputers,
+      userName,
+      userPhone,
+      selectedTime
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert("Бронювання успішно створено!");
+        document.getElementById("booking-modal").style.display = "none";
+        document.body.classList.remove("overflow-hidden");
+      } else {
+        alert(data.message);
+      }
+    })
+    .catch(error => {
+      console.error("Помилка при бронюванні:", error);
+      alert("Сталася помилка при бронюванні. Спробуйте ще раз.");
+    });
 });
