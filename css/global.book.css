@@ -38,7 +38,7 @@
 .all__halls {
   border: 2px solid var(--text-blue);
   width: 100%;
-  height: 80%;
+  height: 60%;
   display: flex;
   flex-direction: row;
 }

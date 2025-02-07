@@ -75,28 +75,88 @@ window.addEventListener("click", function (event) {
 });
 
 //POST RESERVATION
-// не робоче
-fetch("/reservations")
-  .then(response => response.json())
-  .then(reservations => {
-    const reservedComputers = reservations.map(res => res.computerId);
-    document.querySelectorAll(".sets").forEach(btn => {
-      if (reservedComputers.includes(parseInt(btn.textContent))) {
-        btn.classList.add("reserved");
-        btn.disabled = true;  // Забороняє вибір
-      }
-    });
-  });
-// не робоче
+
+
+function calculateEndTime(startTime, duration) {
+  let [hour, minute] = startTime.split(":").map(Number);
+  let endHour = hour + duration;
+  return `${endHour}:00`;
+}
+
+const hourSelect = document.getElementById("hourSelect");
+    
+// Генеруємо список варіантів для годин (наприклад, 10:00 - 22:00)
+for (let hour = 10; hour <= 22; hour++) {
+    let option = document.createElement("option");
+    option.value = `${hour}:00`;
+    option.textContent = `${hour}:00`;
+    hourSelect.appendChild(option);
+}
+// Оновлення реального часу в модальному вікні
+function updateCurrentTime() {
+  const currentTimeSpan = document.getElementById("current-time");
+  setInterval(() => {
+    const now = new Date();
+    currentTimeSpan.textContent = now.toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit" });
+  }, 1000);
+}
+
+// Викликаємо `updateCurrentTime` один раз, щоб запустити інтервал
+updateCurrentTime();
+
+
 
 // Обробка запиту на бронювання
 document.getElementById("bookButton").addEventListener("click", function () {
   console.log("Booking button clicked");  // Перевірка, чи працює подія
   
   const selectedComputers = [];
-  const selectedTime = document.getElementById("timeSelect").value;
+  const startTime = document.getElementById("hourSelect").value;
+  const duration = parseInt(document.getElementById("timeSelect").value);
+  const endTime = calculateEndTime(startTime, duration);
   const userName = document.getElementById("userName").value;
   const userPhone = document.getElementById("userPhone").value;
+
+  function loadReservations() {
+    fetch("/get-reservations")
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`Помилка сервера: ${response.status} ${response.statusText}`);
+          }
+          return response.json();
+      })
+      .then(data => {
+        if (!data.success) {
+          throw new Error(data.message || "Помилка отримання бронювань");
+        }
+        
+        const reservations = data.reservations;
+        document.querySelectorAll(".sets").forEach(button => {
+            const computerId = parseInt(button.textContent);
+            const isReserved = reservations.some(reservation => 
+              reservation.computerId === computerId
+            );
+
+            if (isReserved) {
+              button.classList.add("reserved");
+              button.disabled = true;
+            } else {
+              button.classList.remove("reserved");
+              button.disabled = false;
+            }
+        });
+      })
+      .catch(error => console.error("Помилка отримання бронювань:", error));
+}
+
+  
+  // Викликаємо функцію при зміні часу, щоб оновлювати заблоковані місця
+  document.getElementById("timeSelect").addEventListener("change", loadReservations);
+  
+  // Завантажуємо бронювання при відкритті модального вікна
+  document.getElementById("book-now-button").addEventListener("click", loadReservations);
+  
+
 
   // Збираємо ID вибраних комп'ютерів
   document.querySelectorAll(".sets.selected").forEach(function (btn) {
@@ -124,13 +184,18 @@ document.getElementById("bookButton").addEventListener("click", function () {
       selectedComputers,
       userName,
       userPhone,
-      selectedTime
+      startTime,  // ✅ Повинно бути
+      endTime     // ✅ Повинно бути
     })
   })
+  
     .then(response => response.json())
     .then(data => {
       if (data.success) {
         alert("Бронювання успішно створено!");
+        alert(startTime);
+        alert(endTime);
+        console.log("Відповідь сервера:", data);
         document.getElementById("booking-modal").style.display = "none";
         document.body.classList.remove("overflow-hidden");
       } else {

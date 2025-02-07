@@ -1,38 +1,37 @@
 [
   {
-    "computerId": 1,
-    "userName": "Vlad",
+    "computerId": 36,
+    "userName": "Vova",
     "userPhone": "+380967342577",
-    "time": "1"
+    "startTime": "17:00",
+    "endTime": "22:00"
   },
   {
-    "computerId": 10,
-    "userName": "Vlad",
+    "computerId": 33,
+    "userName": "Vova",
     "userPhone": "+380967342577",
-    "time": "5"
+    "startTime": "17:00",
+    "endTime": "20:00"
   },
   {
-    "computerId": 10,
-    "userName": "Vlad",
+    "computerId": 33,
+    "userName": "Vova",
     "userPhone": "+380967342577",
-    "time": "3"
+    "startTime": "21:00",
+    "endTime": "22:00"
   },
   {
-    "computerId": 1,
-    "userName": "Vlad",
+    "computerId": 33,
+    "userName": "Vova",
     "userPhone": "+380967342577",
-    "time": "10"
+    "startTime": "10:00",
+    "endTime": "11:00"
   },
   {
-    "computerId": 21,
-    "userName": "Vlad",
+    "computerId": 33,
+    "userName": "Vova",
     "userPhone": "+380967342577",
-    "time": "1"
-  },
-  {
-    "computerId": 18,
-    "userName": "Vlad",
-    "userPhone": "+380967342577",
-    "time": "3"
+    "startTime": "20:00",
+    "endTime": "21:00"
   }
 ]
