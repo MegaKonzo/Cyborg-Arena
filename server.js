@@ -18,17 +18,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Обробка запитів на partial-файли (для HTMX)
-app.get("/:partial", (req, res) => {
-  const partialPath = path.join(__dirname, req.params.partial + ".html");
-
-  if (fs.existsSync(partialPath)) {
-    res.sendFile(partialPath);
-  } else {
-    res.status(404).send("Partial not found");
-  }
-});
-
 // Якщо файлу коментарів немає — створюємо його
 if (!fs.existsSync(COMMENTS_FILE)) {
   fs.writeFileSync(COMMENTS_FILE, "const comments = [];\n", "utf8");
@@ -77,36 +66,40 @@ app.post("/add-comment", (req, res) => {
     fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
   }
   
+  
+  app.get("/reservations", (req, res) => {
+    fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
+        if (err) {
+            console.error("Error reading file:", err);
+            return res.status(500).json({ message: "Error reading reservations" });
+        }
+        let reservations = [];
+        try {
+            reservations = JSON.parse(data || "[]"); // Коректний парсинг JSON
+        } catch (error) {
+            console.error("❌ Помилка парсингу JSON у файлі бронювань:", error);
+            return res.status(500).json({ message: "Помилка обробки файлу бронювань" });
+        }
+        res.json(reservations);
+    });
+});
 
+// Обробка partial-файлів (ЗАПУСТИ ПІСЛЯ ВСІХ API)
+app.get("/:partial", (req, res) => {
+  const partialPath = path.join(__dirname, req.params.partial + ".html");
+
+  if (fs.existsSync(partialPath)) {
+      res.sendFile(partialPath);
+  } else {
+      res.status(404).send("Partial not found");
+  }
+});
 
   
   // Middleware для парсингу JSON
   app.use(express.json());
   app.use(express.static(path.join(__dirname, '/')));
   app.use(cors());
-
-// Отримання всіх бронювань
-app.get("/get-reservations", (req, res) => {
-  fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
-      if (err) {
-          console.error("Помилка читання файлу:", err);
-          return res.status(500).json({ success: false, message: "Не вдалося отримати резервування" });
-      }
-      try {
-          const reservations = JSON.parse(data);
-          res.json({ success: true, reservations });
-      } catch (parseError) {
-          console.error("Помилка парсингу JSON:", parseError);
-          res.status(500).json({ success: false, message: "Невірний формат JSON у файлі" });
-      }
-  });
-});
-
-
-// Функція для перевірки конфліктів бронювання
-function isConflict(newStartTime, newEndTime, existingStartTime, existingEndTime) {
-  return (newStartTime < existingEndTime && newEndTime > existingStartTime);
-}
 
   // Створити нове бронювання
   app.post("/book-computer", (req, res) => {
@@ -122,14 +115,6 @@ function isConflict(newStartTime, newEndTime, existingStartTime, existingEndTime
   
       let reservations = JSON.parse(data || "[]");
 
-  
-      // Перевірка на конфлікти з існуючими бронюваннями
-      for (const reservation of reservations) {
-        if (selectedComputers.includes(reservation.computerId) &&
-            isConflict(startTime, endTime, reservation.startTime, reservation.endTime)) {
-          return res.status(400).json({ success: false, message: `Комп'ютер ${reservation.computerId} зайнятий у вибраний час.` });
-        }
-      }
   
     // Додаємо нові бронювання
     const newReservations = selectedComputers.map(computerId => ({

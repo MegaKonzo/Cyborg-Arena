@@ -92,6 +92,57 @@ for (let hour = 10; hour <= 22; hour++) {
     option.textContent = `${hour}:00`;
     hourSelect.appendChild(option);
 }
+
+
+
+// Отримання бронювань з сервера
+async function fetchReservations() {
+  try {
+    const response = await fetch("/reservations");
+    return await response.json();
+  } catch (error) {
+    console.error("Помилка завантаження бронювань:", error);
+    return [];
+  }
+}
+
+// Функція перевірки, чи є обрана година в межах заброньованого часу
+function isTimeBlocked(time, reservations, selectedComputer) {
+  return reservations.some(reservation => 
+    reservation.computerId === selectedComputer &&
+    time >= reservation.startTime && time < reservation.endTime
+  );
+}
+
+// Оновлення списку доступних годин з урахуванням бронювань
+async function updateAvailableHours(selectedComputer) {
+  const reservations = await fetchReservations();
+  hourSelect.innerHTML = ""; // Очистити список
+
+  for (let hour = 10; hour <= 22; hour++) {
+    let time = `${hour}:00`;
+    let option = document.createElement("option");
+    option.value = time;
+    option.textContent = time;
+
+    if (isTimeBlocked(time, reservations, selectedComputer)) {
+      option.disabled = true; // Блокувати зайняті години
+    }
+
+    hourSelect.appendChild(option);
+  }
+}
+
+// Викликати `updateAvailableHours` при виборі комп'ютера
+document.querySelectorAll(".sets").forEach(button => {
+  button.addEventListener("click", function () {
+    let selectedComputer = parseInt(this.textContent);
+    updateAvailableHours(selectedComputer);
+  });
+});
+
+
+
 // Оновлення реального часу в модальному вікні
 function updateCurrentTime() {
   const currentTimeSpan = document.getElementById("current-time");
@@ -117,44 +168,7 @@ document.getElementById("bookButton").addEventListener("click", function () {
   const userName = document.getElementById("userName").value;
   const userPhone = document.getElementById("userPhone").value;
 
-  function loadReservations() {
-    fetch("/get-reservations")
-      .then(response => {
-          if (!response.ok) {
-              throw new Error(`Помилка сервера: ${response.status} ${response.statusText}`);
-          }
-          return response.json();
-      })
-      .then(data => {
-        if (!data.success) {
-          throw new Error(data.message || "Помилка отримання бронювань");
-        }
-        
-        const reservations = data.reservations;
-        document.querySelectorAll(".sets").forEach(button => {
-            const computerId = parseInt(button.textContent);
-            const isReserved = reservations.some(reservation => 
-              reservation.computerId === computerId
-            );
 
-            if (isReserved) {
-              button.classList.add("reserved");
-              button.disabled = true;
-            } else {
-              button.classList.remove("reserved");
-              button.disabled = false;
-            }
-        });
-      })
-      .catch(error => console.error("Помилка отримання бронювань:", error));
-}
-
-  
-  // Викликаємо функцію при зміні часу, щоб оновлювати заблоковані місця
-  document.getElementById("timeSelect").addEventListener("change", loadReservations);
-  
-  // Завантажуємо бронювання при відкритті модального вікна
-  document.getElementById("book-now-button").addEventListener("click", loadReservations);
   
 
 

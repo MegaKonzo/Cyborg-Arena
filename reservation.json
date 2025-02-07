@@ -1,37 +1,86 @@
 [
   {
-    "computerId": 36,
+    "computerId": 1,
     "userName": "Vova",
     "userPhone": "+380967342577",
-    "startTime": "17:00",
-    "endTime": "22:00"
+    "startTime": "14:00",
+    "endTime": "15:00"
   },
   {
-    "computerId": 33,
+    "computerId": 1,
     "userName": "Vova",
     "userPhone": "+380967342577",
-    "startTime": "17:00",
-    "endTime": "20:00"
+    "startTime": "15:00",
+    "endTime": "18:00"
   },
   {
-    "computerId": 33,
-    "userName": "Vova",
-    "userPhone": "+380967342577",
-    "startTime": "21:00",
-    "endTime": "22:00"
-  },
-  {
-    "computerId": 33,
+    "computerId": 2,
     "userName": "Vova",
     "userPhone": "+380967342577",
     "startTime": "10:00",
     "endTime": "11:00"
   },
   {
-    "computerId": 33,
+    "computerId": 1,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "18:00",
+    "endTime": "19:00"
+  },
+  {
+    "computerId": 5,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "15:00",
+    "endTime": "18:00"
+  },
+  {
+    "computerId": 5,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "18:00",
+    "endTime": "19:00"
+  },
+  {
+    "computerId": 5,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "19:00",
+    "endTime": "20:00"
+  },
+  {
+    "computerId": 5,
     "userName": "Vova",
     "userPhone": "+380967342577",
     "startTime": "20:00",
-    "endTime": "21:00"
+    "endTime": "23:00"
+  },
+  {
+    "computerId": 2,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "13:00",
+    "endTime": "16:00"
+  },
+  {
+    "computerId": 1,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "10:00",
+    "endTime": "13:00"
+  },
+  {
+    "computerId": 2,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "10:00",
+    "endTime": "13:00"
+  },
+  {
+    "computerId": 5,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "10:00",
+    "endTime": "13:00"
   }
 ]
