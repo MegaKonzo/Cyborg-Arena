@@ -3,6 +3,14 @@ document.getElementById("book-now-button").addEventListener("click", function ()
     document.body.classList.add("overflow-hidden");
   });
 
+  const buttons = document.querySelectorAll(".vip__button");
+
+  buttons.forEach(button => {  // Додаємо обробник події для кожної кнопки
+    button.addEventListener("click", function() {
+      this.textContent = `book by number in contact`;
+    });
+  });
+
   const mainHall = document.querySelector(".main__hall");
   let selectedComputers = 0;
   let totalPrice = 0;

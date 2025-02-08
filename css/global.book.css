@@ -68,10 +68,12 @@
   cursor: pointer;
   transition: 0.5s ease-in-out;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 1000px) {
     font-size: 10px;
   }
-
+  @media only screen and (max-width: 600px) {
+    font-size: 7px;
+  }
   &:hover {
     background-color: var(--text-blue);
     color: var(--gray-color1);
