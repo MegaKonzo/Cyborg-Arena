@@ -1,4 +1,3 @@
-// move to separate module
 const debounce = (callback, wait) => {
   let timeoutId = null;
 

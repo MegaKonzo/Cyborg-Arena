@@ -13,8 +13,7 @@ app.use(cors()); // Дозволяємо крос-доменні запити
 // Віддаємо всі статичні файли (CSS, JS, IMG) прямо з кореневої папки
 app.use(express.static(__dirname));
 
-// Віддавати index.html при відкритті http://localhost:3000/
-app.get("/", (req, res) => {
+app.get("/", (req, res) => {// Віддавати index.html при відкритті http://localhost:3000/
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
@@ -24,48 +23,42 @@ if (!fs.existsSync(COMMENTS_FILE)) {
 }
 
 app.post("/add-comment", (req, res) => {
-    console.log("Запит на додавання коментаря:", req.body);
   
     fs.readFile(COMMENTS_FILE, "utf8", (err, data) => {
       if (err) {
-        console.error("Помилка читання файлу:", err);
-        return res.status(500).json({ success: false, message: "Помилка читання файлу" });
+        console.error("Error reading file:", err);
+        return res.status(500).json({ success: false, message: "Error reading file" });
       }
   
       let commentsArray = [];
       try {
-        // Виправлений парсинг JSON
         const jsonData = data.replace(/const comments =|\s*;/g, "").trim();
         commentsArray = JSON.parse(jsonData || "[]");
       } catch (error) {
-        console.error("❌ Помилка парсингу JSON! Очищуємо файл...");
+        console.error("❌ JSON parsing error! We clean the file...");
         fs.writeFileSync(COMMENTS_FILE, "const comments = [];\n", "utf8");
-        return res.status(500).json({ success: false, message: "Файл коментарів було пошкоджено. Він очищений, спробуйте ще раз!" });
+        return res.status(500).json({ success: false, message: "The comments file was corrupted. It's cleared, try again!" });
       }
   
       commentsArray.push(req.body);
-  
       const updatedContent = `const comments = ${JSON.stringify(commentsArray, null, 2)};`;
   
       fs.writeFile(COMMENTS_FILE, updatedContent, "utf8", (err) => {
         if (err) {
-          console.error("Помилка запису у файл:", err);
-          return res.status(500).json({ success: false, message: "Помилка запису у файл" });
+          console.error("Error writing to file:", err);
+          return res.status(500).json({ success: false, message: "Error writing to file" });
         }
-        console.log("✅ Коментар успішно збережено!");
-        res.json({ success: true, message: "Коментар збережено!" });
+        res.json({ success: true, message: "Comment saved!" });
       });
     });
   });
   
   // RESERVATION
-  const RESERVATIONS_FILE = "reservation.json"; // Файл змінено на JSON формат
-
+  const RESERVATIONS_FILE = "reservation.json";
   // Якщо файлу бронювання немає — створюємо його
   if (!fs.existsSync(RESERVATIONS_FILE)) {
     fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
   }
-  
   
   app.get("/reservations", (req, res) => {
     fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
@@ -77,14 +70,13 @@ app.post("/add-comment", (req, res) => {
         try {
             reservations = JSON.parse(data || "[]"); // Коректний парсинг JSON
         } catch (error) {
-            console.error("❌ Помилка парсингу JSON у файлі бронювань:", error);
-            return res.status(500).json({ message: "Помилка обробки файлу бронювань" });
+            console.error("❌ JSON parsing error in reservations file:", error);
+            return res.status(500).json({ message: "Error processing reservation file" });
         }
         res.json(reservations);
     });
 });
 
-// Обробка partial-файлів (ЗАПУСТИ ПІСЛЯ ВСІХ API)
 app.get("/:partial", (req, res) => {
   const partialPath = path.join(__dirname, req.params.partial + ".html");
 
@@ -95,14 +87,11 @@ app.get("/:partial", (req, res) => {
   }
 });
 
-  
-  // Middleware для парсингу JSON
   app.use(express.json());
   app.use(express.static(path.join(__dirname, '/')));
   app.use(cors());
 
-  // Створити нове бронювання
-  // Функція перевірки конфлікту за часом
+// Функція перевірки конфлікту за часом
 function isConflict(start1, end1, start2, end2) {
   return !(end1 <= start2 || start1 >= end2);
 }
@@ -112,31 +101,29 @@ app.post("/book-computer", (req, res) => {
 
   fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
       if (err) {
-          console.error("Помилка читання файлу:", err);
-          return res.status(500).json({ success: false, message: "Помилка читання файлу" });
+          console.error("Error reading file:", err);
+          return res.status(500).json({ success: false, message: "Error reading file" });
       }
 
       let reservations = [];
       try {
           reservations = JSON.parse(data || "[]");
       } catch (error) {
-          console.error("❌ JSON пошкоджений! Скидаємо файл...");
+          console.error("❌ JSON injured! We drop the file...");
           fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
-          return res.status(500).json({ success: false, message: "Файл бронювань пошкоджено, спробуйте ще раз." });
+          return res.status(500).json({ success: false, message: "The reservation file is corrupted, please try again." });
       }
 
-      // 🔴 Перевірка на конфлікти
-      for (const reservation of reservations) {
+      for (const reservation of reservations) {// Перевірка на конфлікти
           if (selectedComputers.includes(reservation.computerId) &&
               isConflict(startTime, endTime, reservation.startTime, reservation.endTime)) {
               return res.status(400).json({ 
                   success: false, 
-                  message: `❌ Комп'ютер ${reservation.computerId} зайнятий з ${reservation.startTime} до ${reservation.endTime}!` 
+                  message: ` Computer ${reservation.computerId} is busy from ${reservation.startTime} to ${reservation.endTime}!` 
               });
           }
       }
 
-      // ✅ Додаємо нове бронювання
       const newReservations = selectedComputers.map(computerId => ({
           computerId,
           userName,
@@ -149,19 +136,13 @@ app.post("/book-computer", (req, res) => {
 
       fs.writeFile(RESERVATIONS_FILE, JSON.stringify(reservations, null, 2), "utf8", (err) => {
           if (err) {
-              console.error("Помилка запису у файл:", err);
-              return res.status(500).json({ success: false, message: "Помилка запису у файл" });
+              return res.status(500).json({ success: false, message: "Error writing to file" });
           }
-          console.log("✅ Бронювання збережено!");
-          res.json({ success: true, message: "Бронювання успішно створено!" });
+          res.json({ success: true, message: "Reservation successfully created!" });
       });
   });
 });
 
-  
-
-
-  // Запуск сервера
   app.listen(PORT, () => {
-    console.log(`🚀 Сервер запущено: http://localhost:${PORT}`);
+    console.log(`🚀 The server is running: http://localhost:${PORT}`);
   });

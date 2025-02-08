@@ -1,6 +1,4 @@
-document
-  .getElementById("book-now-button")
-  .addEventListener("click", function () {
+document.getElementById("book-now-button").addEventListener("click", function () {
     document.getElementById("booking-modal").style.display = "block";
     document.body.classList.add("overflow-hidden");
   });
@@ -66,9 +64,7 @@ window.addEventListener("click", function (event) {
   }
 });
 
-//POST RESERVATION
-
-
+//POST and GET RESERVATION
 function calculateEndTime(startTime, duration) {
   let [hour, minute] = startTime.split(":").map(Number);
   let endHour = hour + duration;
@@ -76,7 +72,6 @@ function calculateEndTime(startTime, duration) {
 }
 
 const hourSelect = document.getElementById("hourSelect");
-    
 // Генеруємо список варіантів для годин (наприклад, 10:00 - 22:00)
 for (let hour = 10; hour <= 22; hour++) {
     let option = document.createElement("option");
@@ -85,15 +80,12 @@ for (let hour = 10; hour <= 22; hour++) {
     hourSelect.appendChild(option);
 }
 
-
-
-// Отримання бронювань з сервера
-async function fetchReservations() {
+async function fetchReservations() {// Отримання бронювань з сервера
   try {
     const response = await fetch("/reservations");
     return await response.json();
   } catch (error) {
-    console.error("Помилка завантаження бронювань:", error);
+    console.error("Error loading bookings:", error);
     return [];
   }
 }
@@ -118,13 +110,11 @@ async function updateAvailableHours(selectedComputer) {
     option.textContent = time;
 
     if (isTimeBlocked(time, reservations, selectedComputer)) {
-      option.disabled = true; // Блокувати зайняті години
+      option.disabled = true;
     }
-
     hourSelect.appendChild(option);
   }
 }
-
 // Викликати `updateAvailableHours` при виборі комп'ютера
 document.querySelectorAll(".sets").forEach(button => {
   button.addEventListener("click", function () {
@@ -133,36 +123,27 @@ document.querySelectorAll(".sets").forEach(button => {
   });
 });
 
-
-
-// Оновлення реального часу в модальному вікні
-function updateCurrentTime() {
+function updateCurrentTime() {// Оновлення реального часу в модальному вікні
   const currentTimeSpan = document.getElementById("current-time");
   setInterval(() => {
     const now = new Date();
     currentTimeSpan.textContent = now.toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit" });
   }, 1000);
 }
-
-// Викликаємо `updateCurrentTime` один раз, щоб запустити інтервал
 updateCurrentTime();
-
-
 
 // Обробка запиту на бронювання
 document.getElementById("bookButton").addEventListener("click", function () {
-  console.log("Booking button clicked");  // Перевірка, чи працює подія
-  
   const selectedComputers = [];
   const startTime = document.getElementById("hourSelect").value;
   const duration = parseInt(document.getElementById("timeSelect").value);
   const endTime = calculateEndTime(startTime, duration);
-  const userName = document.getElementById("userName").value;
-  const userPhone = document.getElementById("userPhone").value;
+  const userName = document.getElementById("userName").value.trim();
+  const userPhone = document.getElementById("userPhone").value.trim();
 
-
-  
-
+  // Регулярні вирази для валідації
+  const nameRegex = /^[A-Za-zА-Яа-яЁёЇїІіЄєҐґ\s'-]{4,}$/;
+  const phoneRegex = /^\+?[0-9]{10,14}$/;
 
   // Збираємо ID вибраних комп'ютерів
   document.querySelectorAll(".sets.selected").forEach(function (btn) {
@@ -170,17 +151,27 @@ document.getElementById("bookButton").addEventListener("click", function () {
   });
 
   if (selectedComputers.length === 0) {
-    alert("Будь ласка, виберіть комп'ютери для бронювання.");
+    alert("❌ Please select computers to reserve.");
     return;
   }
 
-  // Перевірка на заповненість полів
-  if (!userName || !userPhone) {
-    alert("Будь ласка, заповніть ім'я та телефон.");
+  // Перевірка імені
+  if (!nameRegex.test(userName)) {
+    alert("❌ Please enter a valid name (at least 4 characters, letters only).");
+    document.getElementById("userName").value = ""; // Очищення
+    document.getElementById("userName").focus(); // Фокус на поле
     return;
   }
 
-  // Відправка даних на сервер
+  // Перевірка телефону
+  if (!phoneRegex.test(userPhone)) {
+    alert("❌ Please enter a valid phone number (10-14 digits, may start with +).");
+    document.getElementById("userPhone").value = ""; // Очищення
+    document.getElementById("userPhone").focus(); // Фокус на поле
+    return;
+  }
+
+  // Відправка даних на сервер тільки після успішної валідації
   fetch("/book-computer", {
     method: "POST",
     headers: {
@@ -190,26 +181,22 @@ document.getElementById("bookButton").addEventListener("click", function () {
       selectedComputers,
       userName,
       userPhone,
-      startTime,  // ✅ Повинно бути
-      endTime     // ✅ Повинно бути
+      startTime,
+      endTime
     })
   })
-  
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        alert("Бронювання успішно створено!");
-        alert(startTime);
-        alert(endTime);
+        alert("✅ Reservation successfully created!");
         console.log("Відповідь сервера:", data);
         document.getElementById("booking-modal").style.display = "none";
         document.body.classList.remove("overflow-hidden");
       } else {
-        alert(data.message);
+        alert("❌ " + data.message);
       }
     })
     .catch(error => {
-      console.error("Помилка при бронюванні:", error);
-      alert("Сталася помилка при бронюванні. Спробуйте ще раз.");
+      alert("❌ There was an error when booking. Try again.");
     });
 });
