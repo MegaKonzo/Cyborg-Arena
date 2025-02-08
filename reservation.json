@@ -66,21 +66,14 @@
     "computerId": 1,
     "userName": "Vova",
     "userPhone": "+380967342577",
-    "startTime": "10:00",
-    "endTime": "13:00"
-  },
-  {
-    "computerId": 2,
-    "userName": "Vova",
-    "userPhone": "+380967342577",
-    "startTime": "10:00",
+    "startTime": "12:00",
     "endTime": "13:00"
   },
   {
     "computerId": 5,
     "userName": "Vova",
     "userPhone": "+380967342577",
-    "startTime": "10:00",
+    "startTime": "12:00",
     "endTime": "13:00"
   }
 ]

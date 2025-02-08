@@ -102,42 +102,62 @@ app.get("/:partial", (req, res) => {
   app.use(cors());
 
   // Створити нове бронювання
-  app.post("/book-computer", (req, res) => {
-    const { selectedComputers, userName, userPhone, startTime, endTime } = req.body;
+  // Функція перевірки конфлікту за часом
+function isConflict(start1, end1, start2, end2) {
+  return !(end1 <= start2 || start1 >= end2);
+}
 
-    console.log("Отримані дані:", req.body);  // ✅ ДОДАНО ЛОГУВАННЯ
-    // Перевіряємо, чи не заброньовано вже ці комп'ютери на цей час
-    fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
+app.post("/book-computer", (req, res) => {
+  const { selectedComputers, userName, userPhone, startTime, endTime } = req.body;
+
+  fs.readFile(RESERVATIONS_FILE, "utf8", (err, data) => {
       if (err) {
-        console.error("Помилка читання файлу бронювань:", err);
-        return res.status(500).json({ success: false, message: "Помилка читання файлу" });
+          console.error("Помилка читання файлу:", err);
+          return res.status(500).json({ success: false, message: "Помилка читання файлу" });
       }
-  
-      let reservations = JSON.parse(data || "[]");
 
-  
-    // Додаємо нові бронювання
-    const newReservations = selectedComputers.map(computerId => ({
-      computerId,
-      userName,
-      userPhone,
-      startTime,  // ✅ ГОДИНА ПОЧАТКУ
-      endTime     // ✅ ГОДИНА КІНЦЯ
-    }));
-
-    console.log("Нові бронювання:", newReservations); // ✅ ЛОГУЄМО ЩО ЗАПИСУЄМО
-
-    reservations.push(...newReservations);
-  
-    fs.writeFile(RESERVATIONS_FILE, JSON.stringify(reservations, null, 2), "utf8", (err) => {
-      if (err) {
-        console.error("Помилка запису у файл бронювань:", err);
-        return res.status(500).json({ success: false, message: "Помилка запису у файл бронювань" });
+      let reservations = [];
+      try {
+          reservations = JSON.parse(data || "[]");
+      } catch (error) {
+          console.error("❌ JSON пошкоджений! Скидаємо файл...");
+          fs.writeFileSync(RESERVATIONS_FILE, "[]", "utf8");
+          return res.status(500).json({ success: false, message: "Файл бронювань пошкоджено, спробуйте ще раз." });
       }
-      res.json({ success: true, message: "Бронювання успішно створено!" });
-    });
+
+      // 🔴 Перевірка на конфлікти
+      for (const reservation of reservations) {
+          if (selectedComputers.includes(reservation.computerId) &&
+              isConflict(startTime, endTime, reservation.startTime, reservation.endTime)) {
+              return res.status(400).json({ 
+                  success: false, 
+                  message: `❌ Комп'ютер ${reservation.computerId} зайнятий з ${reservation.startTime} до ${reservation.endTime}!` 
+              });
+          }
+      }
+
+      // ✅ Додаємо нове бронювання
+      const newReservations = selectedComputers.map(computerId => ({
+          computerId,
+          userName,
+          userPhone,
+          startTime,
+          endTime
+      }));
+
+      reservations.push(...newReservations);
+
+      fs.writeFile(RESERVATIONS_FILE, JSON.stringify(reservations, null, 2), "utf8", (err) => {
+          if (err) {
+              console.error("Помилка запису у файл:", err);
+              return res.status(500).json({ success: false, message: "Помилка запису у файл" });
+          }
+          console.log("✅ Бронювання збережено!");
+          res.json({ success: true, message: "Бронювання успішно створено!" });
+      });
   });
 });
+
   
 
 
