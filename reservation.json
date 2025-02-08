@@ -75,5 +75,26 @@
     "userPhone": "+380967342577",
     "startTime": "12:00",
     "endTime": "13:00"
+  },
+  {
+    "computerId": 13,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "15:00",
+    "endTime": "18:00"
+  },
+  {
+    "computerId": 14,
+    "userName": "Vova",
+    "userPhone": "+380967342577",
+    "startTime": "17:00",
+    "endTime": "22:00"
+  },
+  {
+    "computerId": 14,
+    "userName": "Vova",
+    "userPhone": "+3809673",
+    "startTime": "10:00",
+    "endTime": "15:00"
   }
 ]

@@ -53,14 +53,6 @@ document
   
   document.getElementById("timeSelect").addEventListener("change", updateTotalPrice);
   
-  const button = document.getElementById("free__places");
-  button.addEventListener("mouseenter", function () {
-      button.textContent = "Occupied places";
-  });
-  button.addEventListener("mouseleave", function () {
-      button.textContent = "Free places";
-  });
-  
 
 document.querySelector(".close").addEventListener("click", function () {
   document.getElementById("booking-modal").style.display = "none";
