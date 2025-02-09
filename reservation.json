@@ -1,26 +1,5 @@
 [
   {
-    "computerId": 1,
-    "userName": "Vova",
-    "userPhone": "+380967342577",
-    "startTime": "14:00",
-    "endTime": "15:00"
-  },
-  {
-    "computerId": 1,
-    "userName": "Vova",
-    "userPhone": "+380967342577",
-    "startTime": "10:00",
-    "endTime": "11:00"
-  },
-  {
-    "computerId": 5,
-    "userName": "Vova",
-    "userPhone": "+380967342577",
-    "startTime": "11:00",
-    "endTime": "12:00"
-  },
-  {
     "computerId": 38,
     "userName": "Oksana",
     "userPhone": "0987563488",
@@ -68,5 +47,61 @@
     "userPhone": "0967342577",
     "startTime": "10:00",
     "endTime": "13:00"
+  },
+  {
+    "computerId": 17,
+    "userName": "Vova",
+    "userPhone": "0987563488",
+    "startTime": "16:00",
+    "endTime": "19:00"
+  },
+  {
+    "computerId": 25,
+    "userName": "Ivan",
+    "userPhone": "0987563488",
+    "startTime": "12:00",
+    "endTime": "15:00"
+  },
+  {
+    "computerId": 29,
+    "userName": "Ivan",
+    "userPhone": "0987563488",
+    "startTime": "14:00",
+    "endTime": "17:00"
+  },
+  {
+    "computerId": 33,
+    "userName": "Ivan",
+    "userPhone": "0987563488",
+    "startTime": "14:00",
+    "endTime": "17:00"
+  },
+  {
+    "computerId": 3,
+    "userName": "Ivan",
+    "userPhone": "0987563488",
+    "startTime": "17:00",
+    "endTime": "22:00"
+  },
+  {
+    "computerId": 1,
+    "userName": "Vova",
+    "userPhone": "0967342577",
+    "startTime": "14:00",
+    "endTime": "17:00"
+  },
+  {
+    "computerId": 1,
+    "userName": "Vova",
+    "userPhone": "0967342577",
+    "startTime": "17:00",
+    "endTime": "22:00"
+  },
+  {
+    "computerId": 5,
+    "userName": "Vova",
+    "userPhone": "0967342577",
+    "startTime": "17:00",
+    "endTime": "22:00"
   }
 ]
