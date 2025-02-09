@@ -47,5 +47,26 @@
     "userPhone": "+380683454661",
     "startTime": "10:00",
     "endTime": "23:00"
+  },
+  {
+    "computerId": 30,
+    "userName": "Vova",
+    "userPhone": "0967342577",
+    "startTime": "15:00",
+    "endTime": "18:00"
+  },
+  {
+    "computerId": 34,
+    "userName": "Vova",
+    "userPhone": "0967342577",
+    "startTime": "15:00",
+    "endTime": "18:00"
+  },
+  {
+    "computerId": 30,
+    "userName": "Vova",
+    "userPhone": "0967342577",
+    "startTime": "10:00",
+    "endTime": "13:00"
   }
 ]
