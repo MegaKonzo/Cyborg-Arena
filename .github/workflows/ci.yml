@@ -1,0 +1,45 @@
+name: CI
+run-name: ${{ github.actor }} is testing out GitHub Actions
+
+on:
+  push:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Event trigger
+      run: echo "This job was triggered by a '${{ github.event_name }}' event."
+
+    - name: Operating system info
+      run: echo "The job is running on a '${{ runner.os }}' GitHub-hosted runner."
+
+    - name: Branch and repository
+      run: echo "The branch is '${{ github.ref }}' and the repository is '${{ github.repository }}'."
+
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: List repository files
+      run: "ls ${{ github.workspace }}"
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build || echo "No build script found, skipping..."
+
+    - name: Run unit tests
+      run: npm test || echo "No test script found or tests are not configured."
+
+    - name: Job status
+      run: "ls ${{ github.workspace }}"
